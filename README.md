@@ -3,4 +3,4 @@
 ### /API
 provides a JSON-RPC API to fetch the first found product from ah.nl
 #### method search
-params: query
+query => array
