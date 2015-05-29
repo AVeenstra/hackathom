@@ -10,7 +10,7 @@ if (isset($_POST['q']))
 	$connection = Tivoka\Client::connect("https://shinigami.student.utwente.nl/hackathom/index.php");
 	try
 	{
-		$request = $connection->sendRequest('search', array('query' => explode(' ',$_POST['q'])));
+		$request = $connection->sendRequest('recipe', array('query' => $_POST['q'], 'amount' => 3));
 		print_r($request->result);
 		echo '<br />';
 		print_r($request->getRequest(Tivoka\Tivoka::SPEC_2_0));
