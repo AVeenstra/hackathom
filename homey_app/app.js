@@ -20,8 +20,8 @@ var CONFIG = JSON.parse(fs.readFileSync("./config.json")),
 
 var say = function(text) {
     Homey.log(text);
-    Homey.manager('speech-output').say(__(text));
-};
+    Homey.manager('speech-output').say(text);
+}
 
 var addToShoppingList = function (items) {
     Homey.manager('ledring').animate(ANIMATIONS.searching);
@@ -63,6 +63,18 @@ var addToShoppingList = function (items) {
     });
 }
 
+var addRecipe = function (recipe_text) {
+    Homey.manager('ledring').animate(ANIMATIONS.searching);
+
+    client.request("recipe", {query: recipe_text, amount: 1}, function (err, error, response) {
+        if (response) {
+            addToShoppingList(response.ingredients);
+        } else {
+            say("Dat recept kon ik niet vinden.");
+        }
+    });
+}
+
 App.prototype.init = function() {
 
 };
@@ -77,8 +89,15 @@ App.prototype.speech = function( speech ) {
         "ik", "wil", "vanavond", "eten", "voeg",
         "toe", "aan", "boodschappen", "wat", "staat",
         "er", "mijn", "is", "de", "een", "ook", "graag",
-        "morgen", "drinken", "keer"
+        "morgen", "drinken", "keer", "recept", "persoon",
+        "personen", "voor"
     ];
+
+    // Super quick hacky recipe implementation
+    var is_recipe = false;
+    if (sentence.indexOf('recept') > -1) {
+        is_recipe = true;
+    }
 
     sentence = " " + sentence + " ";
 
@@ -87,6 +106,11 @@ App.prototype.speech = function( speech ) {
     });
 
     sentence = sentence.trim();
+
+    if (is_recipe) {
+        addRecipe(sentence);
+        return;
+    }
 
     // Enable adding multiple items at once
     var items = sentence.split(' en ');
