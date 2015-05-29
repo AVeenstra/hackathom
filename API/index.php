@@ -18,17 +18,18 @@ $server = array(
 		$search = file_get_html('http://www.ah.nl/allerhande/recepten-zoeken?Ntt='.$query);
 		$recipe = file_get_html("http://www.ah.nl".$search->find('section[data-record-type="recipe"] figure a',0)->href);
 		$recipe_title = $recipe->find('h1[itemprop="name"]',0)->plaintext;
-		$people = $recipe->find('section[class="info hidden-phones"] ul[class="short"] li',1)->find('span',0)->plaintext)[0];
+		$list = $recipe->find('section[class="info hidden-phones"] ul[class="short"] li',1);
+		$people = explode(" ",$list->find('span',0)->plaintext)[0];
 		$ingredients_array = array();
 		foreach ($recipe->find('ul[class="list shopping"] li[itemprop="ingredients"]') as $ingredient)
 		{
 			$contents = explode(" ",$ingredient->find('span[class="js-label label"]',0)->plaintext);
-			$contents[0] = $contents[0]/$people*$amount;
-			$unit = $contents[1];
+			$contents[0] = "";//$contents[0]/$people*$amount;
+			$contents[1] = "";
 			$ingredients_array[] = implode(" ",$contents);
 		}
 
-		return array('recipe_title' => $recipe_title,'ingredients' => $ingredients_array);
+		return array('recipe' => $recipe_title,'ingredients' => $ingredients_array);
 	}
 );
 
