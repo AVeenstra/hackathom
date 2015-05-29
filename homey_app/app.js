@@ -20,7 +20,7 @@ var CONFIG = JSON.parse(fs.readFileSync("./config.json")),
 
 var say = function(text) {
     Homey.log(text);
-    Homey.manager('speech-output').say(__(text));
+    Homey.manager('speech-output').say(text);
 };
 
 var addToShoppingList = function (items) {
