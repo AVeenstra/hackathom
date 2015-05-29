@@ -1,0 +1,58 @@
+{
+    "id": "nl.athom.grocerey",
+    "version": "1.0.0",
+    "name": {
+        "en": "Grocerey",
+        "nl": "Boodschappending"
+    },
+    "description": {
+        "en": "Grocerey",
+        "nl": "Boodschappending"
+    },
+    "author": {
+        "name": "Bestuur + KB",
+        "email": "homeyteam@inter-actief.net"
+    },
+    "dependencies": {
+
+    },
+    "permissions": [
+        "homey:manager:speech-output"
+    ],
+    "speech": [
+        {
+            "id": "groceries",
+            "importance": 1,
+            "synonyms": {
+                "en": [ "boodschappen" ],
+                "nl": [ "boodschappen" ]
+            }
+        }, {
+            "id": "shoppinglist",
+            "importance": 1,
+            "synonyms": {
+                "en": [ "boodschappenlijstje" ],
+                "nl": [ "boodschappenlijstje" ]
+            }
+        }, {
+            "id": "food",
+            "importance": 0.5,
+            "synonyms": {
+                "en": [ "eten" ],
+                "nl": [ "eten" ]
+            }
+        }, {
+            "id": "food",
+            "importance": 0.5,
+            "synonyms": {
+                "en": [ "drinken" ],
+                "nl": [ "drinken" ]
+            }
+        }
+    ],
+    "flow": {
+        "triggers": [
+
+        ]
+    }
+}
