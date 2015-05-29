@@ -2,21 +2,29 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 include('includes/start.php');
-?>
-<pre>
-<?php
-$connection = Tivoka\Client::connect("http://www.rienheuver.nl/ah-api/index.php");
-var_dump($connection);
-try
+if (isset($_POST['q']))
 {
-	$request = $connection->sendRequest('search', array('query' => 'melk'));
-	print_r($request->result);
-	echo '<br />';
-	print_r($request->getRequest(Tivoka\Tivoka::SPEC_2_0));
-}
-catch (Exception $ex)
-{
-	print_r($ex);
+	?>
+	<pre>
+	<?php
+	$connection = Tivoka\Client::connect("https://shinigami.student.utwente.nl/hackathom/index.php");
+	try
+	{
+		$request = $connection->sendRequest('search', array('query' => str_replace(' ','+',$_POST['q'])));
+		print_r($request->result);
+		echo '<br />';
+		print_r($request->getRequest(Tivoka\Tivoka::SPEC_2_0));
+	}
+	catch (Exception $ex)
+	{
+		print_r($ex);
+	}
+	?>
+	</pre>
+	<?php
 }
 ?>
-</pre>
+<form method="post" action="test.php">
+	<input type="text" name="q">
+	<input type="submit" value="Search">
+</form>
