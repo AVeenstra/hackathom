@@ -1,0 +1,8 @@
+{
+	"RPC": {
+		"port": 443,
+		"hostname": "130.89.162.118",
+		"rejectUnauthorized": false,
+		"path": "/hackathom/index.php"
+	}
+}
