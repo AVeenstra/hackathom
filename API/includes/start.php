@@ -4,6 +4,7 @@ ini_set("display_errors", 1);
 session_start();
 include("includes/functions.php");
 require("includes/jsonrpc.php");
+require("includes/simple_html_dom.php");
 date_default_timezone_set('Europe/Amsterdam');
 
 if (isset($_SERVER['HTTP_ORIGIN'])) {
